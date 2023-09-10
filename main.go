@@ -3,17 +3,16 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/jmohandas/usermanager/handlers"
 )
 
+const port = ":8084"
+
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		n, err := fmt.Fprintf(w, "Hello world in go!")
-		if err != nil {
-			fmt.Println(err)
-		}
+	http.HandleFunc("/", handlers.Home)
+	http.HandleFunc("/about", handlers.About)
 
-		fmt.Println("Bytes send:", n)
-	})
-
-	_ = http.ListenAndServe(":8084", nil)
+	fmt.Println("Server running on port", port)
+	_ = http.ListenAndServe(port, nil)
 }
